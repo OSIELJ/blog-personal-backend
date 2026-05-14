@@ -1,0 +1,9 @@
+﻿C:\Users\Osiel\Área de Trabalho\blog-personal-backend\BlogPersonal\Program.cs
+C:\Users\Osiel\Área de Trabalho\blog-personal-backend\BlogPersonal\obj\Debug\net8.0\BlogPersonal.GlobalUsings.g.cs
+C:\Users\Osiel\Área de Trabalho\blog-personal-backend\BlogPersonal\obj\Debug\net8.0\.NETCoreApp,Version=v8.0.AssemblyAttributes.cs
+C:\Users\Osiel\Área de Trabalho\blog-personal-backend\BlogPersonal\obj\Debug\net8.0\BlogPersonal.AssemblyInfo.cs
+C:\Users\Osiel\Área de Trabalho\blog-personal-backend\BlogPersonal\obj\Debug\net8.0\BlogPersonal.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Osiel\Área de Trabalho\blog-personal-backend\BlogPersonal\appsettings.Development.json
+C:\Users\Osiel\Área de Trabalho\blog-personal-backend\BlogPersonal\appsettings.json
+C:\Users\Osiel\Área de Trabalho\blog-personal-backend\BlogPersonal\BlogPersonal.http
+C:\Users\Osiel\Área de Trabalho\blog-personal-backend\BlogPersonal\Properties\launchSettings.json
