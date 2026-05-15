@@ -427,4 +427,10 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+# Sensitive configuration files
+appsettings.Development.json
+appsettings.*.json
+!appsettings.json
+
 .sonarqube/ 
