@@ -1,3 +1,4 @@
+using BlogPersonal.Config;
 using BlogPersonal.DTOs;
 using BlogPersonal.Models;
 using BlogPersonal.Repositories;
@@ -7,10 +8,12 @@ namespace BlogPersonal.Services;
 public class UserService : IUserService
 {
     private readonly IUserRepository _repository;
+    private readonly JwtService _jwtService;
 
-    public UserService(IUserRepository repository)
+    public UserService(IUserRepository repository, JwtService jwtService)
     {
         _repository = repository;
+        _jwtService = jwtService;
     }
 
     public async Task<IEnumerable<User>> GetAllAsync()
@@ -58,13 +61,15 @@ public class UserService : IUserService
         if (user is null || !BCrypt.Net.BCrypt.Verify(dto.Password, user.Password))
             return null;
 
+        var token = _jwtService.GenerateToken(user);
+
         return new UserLoginResponseDto
         {
             Id = user.Id,
             Name = user.Name,
             Email = user.Email,
             Photo = user.Photo,
-            Token = string.Empty
+            Token = token
         };
     }
 }
