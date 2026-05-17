@@ -6,21 +6,28 @@ using System.Text;
 
 namespace BlogPersonal.Config;
 
+public class JwtSettings
+{
+    public string Key { get; set; } = string.Empty;
+    public string Issuer { get; set; } = string.Empty;
+    public string Audience { get; set; } = string.Empty;
+    public double ExpiresInHours { get; set; } = 1;
+}
+
 public class JwtService
 {
-    private readonly IConfiguration _configuration;
+    private readonly JwtSettings _settings;
 
     public JwtService(IConfiguration configuration)
     {
-        _configuration = configuration;
+        _settings = configuration.GetSection("Jwt").Get<JwtSettings>()
+            ?? throw new InvalidOperationException("JWT settings not configured.");
     }
 
     public string GenerateToken(User user)
     {
-        var key = _configuration["Jwt:Key"]
-            ?? throw new InvalidOperationException("JWT key not configured.");
-
-        var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
+        var keyBytes = Encoding.UTF8.GetBytes(_settings.Key);
+        var signingKey = new SymmetricSecurityKey(keyBytes);
         var credentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256);
 
         var claims = new[]
@@ -31,13 +38,11 @@ public class JwtService
             new Claim("name", user.Name)
         };
 
-        var expiresInHours = double.Parse(_configuration["Jwt:ExpiresInHours"] ?? "1");
-
         var token = new JwtSecurityToken(
-            issuer: _configuration["Jwt:Issuer"],
-            audience: _configuration["Jwt:Audience"],
+            issuer: _settings.Issuer,
+            audience: _settings.Audience,
             claims: claims,
-            expires: DateTime.UtcNow.AddHours(expiresInHours),
+            expires: DateTime.UtcNow.AddHours(_settings.ExpiresInHours),
             signingCredentials: credentials
         );
 
