@@ -2,6 +2,7 @@ using BlogPersonal.Config;
 using BlogPersonal.Data;
 using BlogPersonal.Repositories;
 using BlogPersonal.Services;
+using BlogPersonal.Services.IA;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -52,6 +53,9 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IPostService, PostService>();
 builder.Services.AddScoped<IThemeService, ThemeService>();
 builder.Services.AddScoped<JwtService>();
+
+// AI Services
+builder.Services.AddScoped<IIAService, OpenAIService>();
 
 // Controllers
 builder.Services.AddControllers()
