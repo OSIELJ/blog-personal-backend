@@ -25,7 +25,7 @@ public class ThemeRepository : IThemeRepository
 
     public async Task<IEnumerable<Theme>> GetByDescriptionAsync(string description)
         => await _context.Themes
-            .Where(t => t.Description.ToLower().Contains(description.ToLower()))
+            .Where(t => t.Description.Contains(description, StringComparison.OrdinalIgnoreCase))
             .ToListAsync();
 
     public async Task<Theme> CreateAsync(Theme theme)

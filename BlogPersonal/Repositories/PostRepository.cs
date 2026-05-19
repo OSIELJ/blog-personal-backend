@@ -29,7 +29,7 @@ public class PostRepository : IPostRepository
         => await _context.Posts
             .Include(p => p.Theme)
             .Include(p => p.User)
-            .Where(p => p.Title.ToLower().Contains(title.ToLower()))
+            .Where(p => p.Title.Contains(title, StringComparison.OrdinalIgnoreCase))
             .ToListAsync();
 
     public async Task<IEnumerable<Post>> GetByFilterAsync(long? userId, long? themeId)
