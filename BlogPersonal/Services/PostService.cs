@@ -1,15 +1,18 @@
 using BlogPersonal.Models;
 using BlogPersonal.Repositories;
+using BlogPersonal.Services.IA;
 
 namespace BlogPersonal.Services;
 
 public class PostService : IPostService
 {
     private readonly IPostRepository _repository;
+    private readonly IIAService _iaService;
 
-    public PostService(IPostRepository repository)
+    public PostService(IPostRepository repository, IIAService iaService)
     {
         _repository = repository;
+        _iaService = iaService;
     }
 
     public async Task<IEnumerable<Post>> GetAllAsync()
@@ -26,6 +29,18 @@ public class PostService : IPostService
 
     public async Task<Post> CreateAsync(Post post)
     {
+        try
+        {
+            var aiResult = await _iaService.GenerateSummaryAsync(post.Content);
+            post.AiSummary = aiResult.Summary;
+            post.AiTags = aiResult.Tags;
+            post.AiCategory = aiResult.Category;
+        }
+        catch
+        {
+            // AI failed, save post without enrichment
+        }
+
         post.CreatedAt = DateTime.UtcNow;
         return await _repository.CreateAsync(post);
     }
