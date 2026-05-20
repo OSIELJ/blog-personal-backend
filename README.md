@@ -46,6 +46,9 @@ Create `BlogPersonal/appsettings.Development.json`:
   },
   "Jwt": {
     "Key": "BlogPessoalSecretKey2024!SuaChaveLongaAqui@123"
+  },
+  "OpenAI": {
+    "ApiKey": "Sua chave OpeAi aqui"
   }
 }
 ```
