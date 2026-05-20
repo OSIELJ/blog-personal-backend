@@ -46,7 +46,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         shell: powershell
         run: |
-          ${{ runner.temp }}\scanner\dotnet-sonarscanner begin /k:"OSIELJ_blog-personal-backend" /o:"osielj" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.cs.vscoveragexml.reportsPaths="coverage.xml" /d:sonar.coverage.exclusions="**/Migrations/**"
+          ${{ runner.temp }}\scanner\dotnet-sonarscanner begin /k:"OSIELJ_blog-personal-backend" /o:"osielj" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.cs.vscoveragexml.reportsPaths="coverage.xml" /d:sonar.coverage.exclusions="**/Migrations/**,**/Program.cs"
           dotnet build
           dotnet-coverage collect "dotnet test BlogPersonal.Tests/BlogPersonal.Tests.csproj" -f xml -o coverage.xml
           ${{ runner.temp }}\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
